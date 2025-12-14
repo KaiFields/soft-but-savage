@@ -1,26 +1,15 @@
 import './App.css';
+import logo from './assets/logo.svg';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src="Octocat.png" className="App-logo" alt="logo" />
-        <p>
-          GitHub Codespaces <span className="heart">♥️</span> React
-        </p>
-        <p className="small">
-          Edit <code>src/App.jsx</code> and save to reload.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </p>
+        <img src={logo} className="App-logo" alt="Soft But Savage logo" />
+        <div className="brand">Soft But Savage</div>
+        <div className="tagline">A journal‑styled sanctuary for reclaiming soft power</div>
+        <button className="cta">Begin Your Soft Rebirth</button>
+        <div className="small">Designed with warmth, ritual, and sisterhood.</div>
       </header>
     </div>
   );
