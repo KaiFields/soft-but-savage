@@ -1,0 +1,7 @@
+
+{
+  "appId": "com.example.app",
+  "appName": "facebook-clone",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}

@@ -1,4 +1,6 @@
+
 import React, { useState } from 'react';
+import Chat from './components/Chat';
 
 const initialPosts = [
   {
@@ -74,6 +76,7 @@ export default function Community() {
           </li>
         ))}
       </ul>
+      <Chat />
     </section>
   );
 }
