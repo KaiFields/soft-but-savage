@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import './MessageSender.css';
+import { Camera, CameraResultType } from '@capacitor/camera';
 
 const MessageSender = () => {
   const [input, setInput] = useState('');
@@ -13,6 +14,25 @@ const MessageSender = () => {
 
     setInput('');
     setImageUrl('');
+  };
+
+  const takePicture = async () => {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.Uri
+    });
+
+    // image.webPath will contain a path that can be used as an image src.
+    // However, it's temporary and will be revoked after the app is closed.
+    // To fix this, we need to read the file and convert it to a base64 string.
+    const response = await fetch(image.webPath);
+    const blob = await response.blob();
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImageUrl(reader.result);
+    };
+    reader.readAsDataURL(blob);
   };
 
   return (
@@ -41,6 +61,8 @@ const MessageSender = () => {
         </form>
       </div>
 
+      {imageUrl && <img src={imageUrl} alt="Taken photo" />}
+
       <div className="messageSender__bottom">
         <div className="messageSender__option">
           <span style={{ color: 'red' }} className="material-icons">
@@ -54,6 +76,13 @@ const MessageSender = () => {
             photo_library
           </span>
           <h3>Photo/Video</h3>
+        </div>
+
+        <div className="messageSender__option" onClick={takePicture}>
+          <span style={{ color: 'blue' }} className="material-icons">
+            photo_camera
+          </span>
+          <h3>Camera</h3>
         </div>
 
         <div className="messageSender__option">
