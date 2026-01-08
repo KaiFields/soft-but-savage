@@ -1,46 +1,47 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import firebase from "firebase";
+import db from "./firebase";
 import Chat from './components/Chat';
 
-const initialPosts = [
-  {
-    id: 1,
-    author: 'sisterhood_guest',
-    content: 'Today I reclaimed my softness by taking a mindful walk and writing a gratitude list.',
-    comments: [
-      { id: 1, author: 'softlyme', text: 'Beautiful! Thank you for sharing.' }
-    ]
-  }
-];
-
 export default function Community() {
-  const [posts, setPosts] = useState(initialPosts);
+  const [posts, setPosts] = useState([]);
   const [newPost, setNewPost] = useState('');
   const [comment, setComment] = useState({});
+
+  useEffect(() => {
+    db.collection("posts")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) =>
+        setPosts(snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() })))
+      );
+  }, []);
 
   function handleAddPost(e) {
     e.preventDefault();
     if (!newPost) return;
-    setPosts([
-      {
-        id: Date.now(),
-        author: 'you',
-        content: newPost,
-        comments: []
-      },
-      ...posts
-    ]);
+
+    db.collection("posts").add({
+      content: newPost,
+      author: "you",
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      comments: []
+    });
+
     setNewPost('');
   }
 
   function handleAddComment(postId, e) {
     e.preventDefault();
     if (!comment[postId]) return;
-    setPosts(posts.map(post =>
-      post.id === postId
-        ? { ...post, comments: [...post.comments, { id: Date.now(), author: 'you', text: comment[postId] }] }
-        : post
-    ));
+
+    db.collection("posts").doc(postId).update({
+      comments: firebase.firestore.FieldValue.arrayUnion({
+        text: comment[postId],
+        author: "you"
+      })
+    });
+
     setComment({ ...comment, [postId]: '' });
   }
 
@@ -59,10 +60,10 @@ export default function Community() {
       <ul className="community-posts">
         {posts.map(post => (
           <li key={post.id} className="community-post">
-            <div><b>@{post.author}</b>: {post.content}</div>
+            <div><b>@{post.data.author}</b>: {post.data.content}</div>
             <ul className="comments">
-              {post.comments.map(c => (
-                <li key={c.id}><b>@{c.author}</b>: {c.text}</li>
+              {post.data.comments && post.data.comments.map((c, index) => (
+                <li key={index}><b>@{c.author}</b>: {c.text}</li>
               ))}
             </ul>
             <form onSubmit={e => handleAddComment(post.id, e)} className="comment-form">
