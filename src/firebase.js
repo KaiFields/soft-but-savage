@@ -1,12 +1,14 @@
-import firebase from "firebase";
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 const firebaseConfig = {
-  apiKey: "<your-api-key>",
-  authDomain: "<your-auth-domain>",
-  projectId: "<your-project-id>",
-  storageBucket: "<your-storage-bucket>",
-  messagingSenderId: "<your-messaging-sender-id>",
-  appId: "<your-app-id>"
+  apiKey: "AIzaSyDqfsUhnpCXxVcj1CGSU5JV1E7PfWn108I",
+  authDomain: "soft-but-savage-57084266-becf1.firebaseapp.com",
+  projectId: "soft-but-savage-57084266-becf1",
+  storageBucket: "soft-but-savage-57084266-becf1.firebasestorage.app",
+  messagingSenderId: "517977227122",
+  appId: "1:517977227122:web:f5b31bebaef0cfc26867eb"
 };
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
