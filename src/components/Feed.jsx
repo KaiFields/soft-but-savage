@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './Feed.css';
 import StoryReel from './StoryReel';
 import MessageSender from './MessageSender';
