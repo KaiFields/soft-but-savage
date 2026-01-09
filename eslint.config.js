@@ -2,7 +2,9 @@ import globals from "globals";
 import pluginJs from "@eslint/js";
 import pluginReact from "eslint-plugin-react";
 
+
 export default [
+  { ignores: ["dist/", "android/"] },
   { files: ["**/*.{js,jsx,mjs,cjs}"] },
   pluginJs.configs.recommended,
   {
