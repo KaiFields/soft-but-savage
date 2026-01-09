@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 // Mock API for authentication
 const authAPI = {
@@ -98,3 +99,7 @@ export default function UserAuth({ onAuth }) {
     </form>
   );
 }
+
+UserAuth.propTypes = {
+  onAuth: PropTypes.func.isRequired,
+};

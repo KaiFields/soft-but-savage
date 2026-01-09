@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-export default function JournalEntries({ user }) {
+export default function JournalEntries() {
   const [entries, setEntries] = useState([
     { id: 1, title: 'Welcome Entry', content: 'This is your first journal entry. Write your thoughts, dreams, or rituals here.' }
   ]);
