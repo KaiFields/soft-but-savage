@@ -18,7 +18,10 @@
     "build": "vite build"
   },
   "devDependencies": {
+    "@testing-library/react": "^12.1.5",
     "@vitejs/plugin-react": "^4.2.1",
-    "vite": "^6.4.1"
+    "jsdom": "^27.0.1",
+    "vite": "^6.4.1",
+    "vitest": "^0.34.6"
   }
 }
