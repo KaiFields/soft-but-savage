@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './MessageSender.css';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { db } from '../firebase';
@@ -47,7 +46,7 @@ const MessageSender = () => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             className="messageSender__input"
-            placeholder={`What\'s on your mind, ${user.displayName}?`}
+            placeholder={`What's on your mind, ${user.displayName}?`}
           />
           <input
             value={imageUrl}
