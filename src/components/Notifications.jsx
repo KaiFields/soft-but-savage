@@ -1,5 +1,4 @@
-
-import React from 'react';
+import 'react';
 
 const Notifications = ({ notifications }) => {
   return (
