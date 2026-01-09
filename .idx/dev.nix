@@ -2,7 +2,8 @@
         channel = "stable-24.05";
         packages = [
           pkgs.nodejs_20,
-          pkgs.npm
+          pkgs.npm,
+          pkgs.eslint
         ];
         idx.extensions = [
           "dbaeumer.vscode-eslint"
