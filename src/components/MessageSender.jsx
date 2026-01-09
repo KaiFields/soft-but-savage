@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import './MessageSender.css';
 import { Camera, CameraResultType } from '@capacitor/camera';
-import db from '../firebase';
-import firebase from 'firebase/compat/app';
+import { db } from '../firebase';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useStateValue } from '../StateProvider';
 
 const MessageSender = () => {
@@ -14,9 +14,11 @@ const MessageSender = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    db.collection('posts').add({
+    if (!user) return;
+
+    addDoc(collection(db, 'posts'),{
       message: input,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      timestamp: serverTimestamp(),
       profilePic: user.photoURL,
       username: user.displayName,
       image: imageUrl,
@@ -35,8 +37,8 @@ const MessageSender = () => {
 
     setImageUrl(image.dataUrl);
   };
-
-  return (
+  
+    return (
     <div className="messageSender">
       <div className="messageSender__top">
         <img className="user__avatar" src={user.photoURL} alt={user.displayName} />
@@ -45,7 +47,7 @@ const MessageSender = () => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             className="messageSender__input"
-            placeholder={`What's on your mind, ${user.displayName}?`}
+            placeholder={`What\'s on your mind, ${user.displayName}?`}
           />
           <input
             value={imageUrl}

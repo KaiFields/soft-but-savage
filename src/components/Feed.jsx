@@ -4,17 +4,18 @@ import './Feed.css';
 import StoryReel from './StoryReel';
 import MessageSender from './MessageSender';
 import Post from './Post';
-import db from '../firebase';
+import { db } from '../firebase';
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    db.collection('posts')
-      .orderBy('timestamp', 'desc')
-      .onSnapshot((snapshot) =>
-        setPosts(snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() })))
-      );
+    const q = query(collection(db, 'posts'), orderBy('timestamp', 'desc'));
+    const unsubscribe = onSnapshot(q, (snapshot) =>
+      setPosts(snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() })))
+    );
+    return unsubscribe;
   }, []);
 
   return (
