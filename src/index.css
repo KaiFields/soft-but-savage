@@ -9,6 +9,18 @@
   --header-background-color: #fff;
   --icon-color: #65676b;
   --divider-color: #ced0d4;
+  --divider-color-light: #eff2f5;
+  --text-secondary: gray;
+  
+  /* Dark theme / Header colors */
+  --dark-theme-background: #242526;
+  --dark-theme-hover: #3a3b3c;
+  --dark-theme-text: #e4e6eb;
+  --dark-theme-icon: #b0b3b8;
+
+  /* Action colors */
+  --active-color: #2e81f4;
+  --active-color-hover: #1b74e4;
 }
 
 body {
