@@ -1,8 +1,19 @@
-import { expect, test } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import App from './App';
 import { StateProvider } from './StateProvider';
 import reducer, { initialState } from './reducer.js';
+
+vi.mock('./firebase', () => ({
+  default: {
+    collection: vi.fn(() => ({
+      onSnapshot: vi.fn(callback => callback({ docs: [] })),
+      orderBy: vi.fn(() => ({
+        onSnapshot: vi.fn(callback => callback({ docs: [] }))
+      }))
+    }))
+  }
+}));
 
 test('renders brand name', () => {
   const loggedInState = {
