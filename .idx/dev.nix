@@ -5,7 +5,7 @@
   # The packages to install in the environment.
   packages = [
     pkgs.nodejs_20,
-    pkgs.nodePackages.npm
+    pkgs.npm
   ];
 
   # The VS Code extensions to install.
