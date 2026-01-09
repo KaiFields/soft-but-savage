@@ -8,34 +8,31 @@
     pkgs.npm
   ];
 
-  # IDX configuration
-  idx = {
-    # The VS Code extensions to install.
-    extensions = [
-      "dbaeumer.vscode-eslint",
-      "esbenp.prettier-vscode"
-    ];
+  # The VS Code extensions to install.
+  idx.extensions = [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode"
+  ];
 
-    # Commands to run on environment startup.
-    bootstrap = [
-      "npm ci"
-    ];
+  # Commands to run on environment startup.
+  idx.bootstrap = [
+    "npm install"
+  ];
 
-    # The previews to run.
-    previews = {
-      web = {
-        command = [
-          "npm",
-          "run",
-          "start",
-          "--",
-          "--port",
-          "$PORT",
-          "--host",
-          "0.0.0.0"
-        ];
-        manager = "web";
-      };
+  # The previews to run.
+  idx.previews = {
+    web = {
+      command = [
+        "npm",
+        "run",
+        "start",
+        "--",
+        "--port",
+        "$PORT",
+        "--host",
+        "0.0.0.0"
+      ];
+      manager = "web";
     };
   };
 }
