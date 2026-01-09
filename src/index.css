@@ -1,3 +1,15 @@
+:root {
+  --primary-background: #f0f2f5;
+  --primary-text: #1c1e21;
+  --secondary-background: #fff;
+  --secondary-text: #050505;
+  --comment-background: #f0f2f5;
+  --input-background: #f0f2f5;
+  --button-background-color: #e4e6eb;
+  --header-background-color: #fff;
+  --icon-color: #65676b;
+  --divider-color: #ced0d4;
+}
 
 body {
   margin: 0;
@@ -6,8 +18,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f0f2f5;
-  color: #1c1e21;
+  background-color: var(--primary-background);
+  color: var(--primary-text);
 }
 
 code {
