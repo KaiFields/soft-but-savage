@@ -4,38 +4,35 @@
 
   # The packages to install in the environment.
   packages = [
-    pkgs.nodejs_20
+    pkgs.nodejs_20,
     pkgs.nodePackages.npm
   ];
 
-  # IDX configuration
-  idx = {
-    # The VS Code extensions to install.
-    extensions = [
-      "dbaeumer.vscode-eslint"
-      "esbenp.prettier-vscode"
-    ];
+  # The VS Code extensions to install.
+  idx.extensions = [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode"
+  ];
 
-    # Commands to run on environment startup.
-    bootstrap = [
-      "npm ci" # Using 'npm ci' for faster, more reliable installs.
-    ];
+  # Commands to run on environment startup.
+  idx.bootstrap = [
+    "npm ci"
+  ];
 
-    # The previews to run.
-    previews = {
-      web = {
-        command = [
-          "npm"
-          "run"
-          "start"
-          "--"
-          "--port"
-          "$PORT"
-          "--host"
-          "0.0.0.0"
-        ];
-        manager = "web";
-      };
+  # The previews to run.
+  idx.previews = {
+    web = {
+      command = [
+        "npm",
+        "run",
+        "start",
+        "--",
+        "--port",
+        "$PORT",
+        "--host",
+        "0.0.0.0"
+      ];
+      manager = "web";
     };
   };
 }
