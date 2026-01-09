@@ -8,20 +8,18 @@
           "dbaeumer.vscode-eslint"
         ];
         idx.previews = {
-          previews = {
-            web = {
-              command = [
-                "npm",
-                "run",
-                "start",
-                "--",
-                "--port",
-                "$PORT",
-                "--host",
-                "0.0.0.0"
-              ];
-              manager = "web";
-            };
+          web = {
+            command = [
+              "npm",
+              "run",
+              "start",
+              "--",
+              "--port",
+              "$PORT",
+              "--host",
+              "0.0.0.0"
+            ];
+            manager = "web";
           };
         };
       }
