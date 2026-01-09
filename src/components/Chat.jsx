@@ -1,9 +1,10 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const chatContainerRef = useRef(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -15,6 +16,12 @@ const Chat = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   const handleSendMessage = (e) => {
     e.preventDefault();
@@ -29,7 +36,10 @@ const Chat = () => {
   return (
     <div style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '10px', marginTop: '20px' }}>
       <h3>Real-time Chat</h3>
-      <div style={{ height: '200px', overflowY: 'scroll', border: '1px solid #eee', padding: '10px', marginBottom: '10px' }}>
+      <div
+        ref={chatContainerRef}
+        style={{ height: '200px', overflowY: 'scroll', border: '1px solid #eee', padding: '10px', marginBottom: '10px' }}
+      >
         {messages.map(msg => (
           <div key={msg.id}><b>{msg.author}:</b> {msg.text}</div>
         ))}

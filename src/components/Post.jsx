@@ -6,7 +6,7 @@ const Post = ({ profilePic, image, username, timestamp, message }) => {
   return (
     <div className="post">
       <div className="post__top">
-        <img src={profilePic} className="user__avatar" alt="" />
+        <img src={profilePic} className="user__avatar" alt={username} />
         <div className="post__topInfo">
           <h3>{username}</h3>
           <p>{new Date(timestamp?.toDate()).toUTCString()}</p>
@@ -17,9 +17,11 @@ const Post = ({ profilePic, image, username, timestamp, message }) => {
         <p>{message}</p>
       </div>
 
-      <div className="post__image">
-        <img src={image} alt="" />
-      </div>
+      {image && (
+        <div className="post__image">
+          <img src={image} alt={`post by ${username}`} />
+        </div>
+      )}
 
       <div className="post__options">
         <div className="post__option">

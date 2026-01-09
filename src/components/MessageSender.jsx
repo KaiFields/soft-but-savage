@@ -2,15 +2,25 @@
 import React, { useState } from 'react';
 import './MessageSender.css';
 import { Camera, CameraResultType } from '@capacitor/camera';
+import db from '../firebase';
+import firebase from 'firebase/compat/app';
+import { useStateValue } from '../StateProvider';
 
 const MessageSender = () => {
+  const [{ user }] = useStateValue();
   const [input, setInput] = useState('');
   const [imageUrl, setImageUrl] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // TODO: Add post to the database
+    db.collection('posts').add({
+      message: input,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      profilePic: user.photoURL,
+      username: user.displayName,
+      image: imageUrl,
+    });
 
     setInput('');
     setImageUrl('');
@@ -20,40 +30,27 @@ const MessageSender = () => {
     const image = await Camera.getPhoto({
       quality: 90,
       allowEditing: true,
-      resultType: CameraResultType.Uri
+      resultType: CameraResultType.DataUrl,
     });
 
-    // image.webPath will contain a path that can be used as an image src.
-    // However, it's temporary and will be revoked after the app is closed.
-    // To fix this, we need to read the file and convert it to a base64 string.
-    const response = await fetch(image.webPath);
-    const blob = await response.blob();
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImageUrl(reader.result);
-    };
-    reader.readAsDataURL(blob);
+    setImageUrl(image.dataUrl);
   };
 
   return (
     <div className="messageSender">
       <div className="messageSender__top">
-        <img
-          className="user__avatar"
-          src="https://avatars.githubusercontent.com/u/1234567?v=4"
-          alt="User avatar"
-        />
+        <img className="user__avatar" src={user.photoURL} alt={user.displayName} />
         <form>
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             className="messageSender__input"
-            placeholder={"What's on your mind?"}
+            placeholder={`What's on your mind, ${user.displayName}?`}
           />
           <input
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
-            placeholder={"image URL (Optional)"}
+            placeholder={'image URL (Optional)'}
           />
           <button onClick={handleSubmit} type="submit">
             Hidden submit
@@ -61,7 +58,7 @@ const MessageSender = () => {
         </form>
       </div>
 
-      {imageUrl && <img src={imageUrl} alt="Taken photo" />}
+      {imageUrl && <img src={imageUrl} alt="Taken" />}
 
       <div className="messageSender__bottom">
         <div className="messageSender__option">

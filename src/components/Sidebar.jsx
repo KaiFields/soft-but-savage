@@ -1,17 +1,20 @@
 
 import React from 'react';
 import './Sidebar.css';
+import { useStateValue } from '../StateProvider';
 
 const Sidebar = () => {
+  const [{ user }] = useStateValue();
+
   return (
     <div className="sidebar">
       <div className="sidebarRow">
         <img
           className="user__avatar"
-          src="https://avatars.githubusercontent.com/u/1234567?v=4"
-          alt="User avatar"
+          src={user.photoURL}
+          alt={user.displayName}
         />
-        <h4>Guest</h4>
+        <h4>{user.displayName}</h4>
       </div>
 
       <div className="sidebarRow">
