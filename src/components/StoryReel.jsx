@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Story from './Story';
 import './StoryReel.css';
 import db from '../firebase';

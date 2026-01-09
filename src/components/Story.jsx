@@ -1,5 +1,3 @@
-
-import React from 'react';
 import './Story.css';
 
 const Story = ({ image, profileSrc, title }) => {
