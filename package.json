@@ -5,6 +5,7 @@
   "type": "module",
   "dependencies": {
     "@capacitor/camera": "^8.0.0",
+    "@capacitor/core": "^8.0.0",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "firebase": "^12.7.0",
