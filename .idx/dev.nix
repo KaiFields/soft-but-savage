@@ -1,12 +1,14 @@
 { pkgs, ... }: {
   channel = "unstable";
+
   packages = [
-    pkgs.nodejs_20
+    pkgs.nodejs_20,
     pkgs.npm
   ];
+
   idx = {
     extensions = [
-      "dbaeumer.vscode-eslint"
+      "dbaeumer.vscode-eslint",
       "esbenp.prettier-vscode"
     ];
     bootstrap = [ "npm" "install" ];
