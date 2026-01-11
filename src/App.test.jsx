@@ -5,18 +5,22 @@ import { StateProvider } from './StateProvider';
 import reducer, { initialState } from './reducer.js';
 
 // Mock the entire firebase module
-vi.mock('./firebase', () => ({
-  db: {
+vi.mock('./firebase', () => {
+  const dbMock = {
     collection: vi.fn(() => ({
       onSnapshot: vi.fn(callback => callback({ docs: [] })),
       orderBy: vi.fn(() => ({
         onSnapshot: vi.fn(callback => callback({ docs: [] }))
       }))
     }))
-  },
-  auth: {}, // Mock auth object
-  provider: {} // Mock provider object
-}));
+  };
+  return {
+    default: dbMock,
+    db: dbMock,
+    auth: {}, // Mock auth object
+    provider: {} // Mock provider object
+  };
+});
 
 test('renders user display name when logged in', () => {
   const loggedInState = {
