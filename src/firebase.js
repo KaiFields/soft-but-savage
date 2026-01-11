@@ -4,7 +4,7 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDqfsUhnpCXxVcj1CGSU5JV1E7PfWn108I",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "soft-but-savage-57084266-becf1.firebaseapp.com",
   projectId: "soft-but-savage-57084266-becf1",
   storageBucket: "soft-but-savage-57084266-becf1.appspot.com",
