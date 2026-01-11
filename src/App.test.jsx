@@ -4,21 +4,24 @@ import App from './App';
 import { StateProvider } from './StateProvider';
 import reducer, { initialState } from './reducer.js';
 
+// Mock the entire firebase module
 vi.mock('./firebase', () => ({
-  default: {
+  db: {
     collection: vi.fn(() => ({
       onSnapshot: vi.fn(callback => callback({ docs: [] })),
       orderBy: vi.fn(() => ({
         onSnapshot: vi.fn(callback => callback({ docs: [] }))
       }))
     }))
-  }
+  },
+  auth: {}, // Mock auth object
+  provider: {} // Mock provider object
 }));
 
-test('renders brand name', () => {
+test('renders user display name when logged in', () => {
   const loggedInState = {
     ...initialState,
-    user: { displayName: 'Test User', email: 'test@example.com' },
+    user: { displayName: 'Test User', email: 'test@example.com', photoURL: 'https://example.com/avatar.jpg' },
   };
 
   render(
@@ -26,6 +29,6 @@ test('renders brand name', () => {
       <App />
     </StateProvider>
   );
-  const linkElement = screen.getByText(/Soft But Savage/i);
-  expect(linkElement).toBeInTheDocument();
+  const userElements = screen.getAllByText(/Test User/i);
+  expect(userElements.length).toBeGreaterThan(0);
 });
